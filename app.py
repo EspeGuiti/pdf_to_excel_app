@@ -5,6 +5,9 @@ from pdf2image import convert_from_bytes
 from PIL import Image
 import io
 
+# 🧠 Le decimos a pytesseract dónde está el ejecutable
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
 def extract_text_from_image_pdf(uploaded_file):
     images = convert_from_bytes(uploaded_file.read(), dpi=300)
     text_data = []
@@ -19,7 +22,6 @@ def convert_df_to_excel(df):
         df.to_excel(writer, index=False, sheet_name='OCR Text')
     return output.getvalue()
 
-# Streamlit UI
 st.title("📄 PDF (Image OCR) to Excel Converter")
 
 uploaded_file = st.file_uploader("Upload a scanned/image PDF", type=["pdf"])
